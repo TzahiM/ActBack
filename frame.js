@@ -12,10 +12,22 @@ function addView(sourceUrl) {
 }
 
 
-function addNew(sourceUrl, destinationUrl, title, subtitle, actType) {
-    var Actback = Parse.Object.extend("Actback");
-    var actback = new Actback();
+function addNewCloud(data) {
+    Parse.Cloud.run('addActBack', data, {
+        success: function (response) {
+            console.log('addNewCloud response ->', response);
+            alert("תודה! נוסף בהצלחה וממתין לאישור!");
+            showAdd(false);
+        },
+        error: function (error) {
+            console.log('addNewCloud error ->', error);
+            alert("סליחה, חלה שגיאה בהוספה, נסה/י מאוחר יותר.");
+            showAdd(false);
+        }
+    });
+}
 
+function addNew(sourceUrl, destinationUrl, title, subtitle, actType) {
     var data = {
         sourceUrl: sourceUrl,
         destinationUrl: destinationUrl,
@@ -24,11 +36,16 @@ function addNew(sourceUrl, destinationUrl, title, subtitle, actType) {
         actType: actType
     };
 
-    actback.save(data).then(function (object) {
-        console.log('object ->', object);
-        alert("תודה! נוסף בהצלחה!");
-        showAdd(false);
-    });
+    addNewCloud(data);
+
+    //var Actback = Parse.Object.extend("Actback");
+    //var actback = new Actback();
+    //
+    //actback.save(data).then(function (object) {
+    //    console.log('object ->', object);
+    //    alert("תודה! נוסף בהצלחה!");
+    //    showAdd(false);
+    //});
 
 }
 
@@ -56,6 +73,10 @@ function addEvent(title, link, subtitle, actType) {
 
         case 4:
             cln.querySelector('.label.event').className += ' on';
+            break;
+
+        case 5:
+            cln.querySelector('.label.volunteer').className += ' on';
             break;
     }
 
@@ -153,7 +174,7 @@ document.querySelector('form .parse.add').onclick = function () {
         return;
     }
 
-    if (subtitle.length < 10) {
+    if (subtitle.length < 6) {
         alert('יש להזין מידע נוסף בשדה האחרון.');
         return;
     }

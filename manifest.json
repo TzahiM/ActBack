@@ -1,9 +1,10 @@
 {
   "manifest_version": 2,
 
-  "name": "ActBack",
-  "description": "מגיבים במעשים / נוקטים פעולה",
-  "version": "1.0",
+  "name": "ActBack - מגיבים במעשים",
+  "short_name": "ActBack",
+  "description": "מגיבים לחדשות במעשים",
+  "version": "1.1",
 
   "browser_action": {
     "default_icon": "270b.png",
@@ -12,13 +13,16 @@
 
   "content_scripts": [ {
     "js": [ "jquery.min.js", "content_script.js"  ],
-    "matches": [ "http://www.ynet.co.il/*", "https://www.ynet.co.il/*" ],
+    "matches": [ "http://www.ynet.co.il/*", "https://www.ynet.co.il/*"],
     "all_frames": false
   } ],
   "permissions": [
     "activeTab",
     "https://ajax.googleapis.com/"
   ],
+  "icons": { "16": "270b.png",
+    "48": "270b.png",
+    "128": "270b.png" },
   "web_accessible_resources": [
     "frame.html",
     "270b.png",
