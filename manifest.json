@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "ActBack",
+  "description": "מגיבים במעשים / נוקטים פעולה",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "270b.png",
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts": [ {
+    "js": [ "jquery.min.js", "content_script.js"  ],
+    "matches": [ "http://www.ynet.co.il/*", "https://www.ynet.co.il/*" ],
+    "all_frames": false
+  } ],
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ],
+  "web_accessible_resources": [
+    "frame.html",
+    "270b.png",
+   "https://www.parsecdn.com"
+  ],
+  "content_security_policy": "script-src 'self' https://www.parsecdn.com; object-src 'self'"
+}
