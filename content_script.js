@@ -48,7 +48,7 @@ function loadUI() {
         .appendTo('body')
         .hide();
 
-    var url = chrome.runtime.getURL('frame.html');
+    var url = 'http://kuterless.org.il/';
 
     $('<iframe>')
         .addClass('ynet-actBack-iframe')
@@ -59,7 +59,7 @@ function loadUI() {
 
 
 function onClick(e) {
-    var url = chrome.runtime.getURL('frame.html');
+    var url = 'http://kuterless.org.il/';
 
     var data = $(e.target).attr('data-link'),
         offset = $(e.target).offset();
