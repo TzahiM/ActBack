@@ -184,3 +184,42 @@ document.querySelector('form .parse.add').onclick = function () {
 
 //addNew('http://www.ynet.co.il/articles/0,7340,L-4719997,00.html', 'https://www.facebook.com/events/710949225660153/', 'היום הבינלאומי נגד מקדונלדס - הפגנה בחיפה!', 'מחר ב- 18:30.', 1);
 
+
+var request = new XMLHttpRequest();
+var path = "http://kuterless.org.il/labs/coplay/api/discussions/?format=json";
+//path = "download.json";
+request.onreadystatechange = function state_change() {
+    if (request.readyState == 4) {// 4 = "loaded"
+        if (request.status == 200) {// 200 = OK
+            // ...our code here...
+            var body = JSON.parse(request.responseText);
+            console.log(body);
+
+            var events = body.map(function (item) {
+                return {
+                    toJSON: function () {
+                        return {
+                            title: item.title,
+                            subtitle: item.description,
+                            destinationUrl: 'http://kuterless.org.il/labs/coplay/432/details/' + item.id,
+                            actType: 3
+
+                        }
+                    }
+                }
+            });
+
+            loadActbacks(events);
+        }
+        else {
+            alert("Problem retrieving XML data");
+        }
+    }
+};
+
+request.open("GET", path, true);
+request.setRequestHeader("Accept", "text/plain");
+request.setRequestHeader("Content-Type", "text/plain");
+
+request.send(null);
+

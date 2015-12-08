@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="application/javascript">
+
+        var request = new XMLHttpRequest();
+        var path = "http://kuterless.org.il/labs/coplay/api/discussions/?format=json";
+        //path = "download.json";
+        request.onreadystatechange = function state_change() {
+            if (request.readyState == 4) {// 4 = "loaded"
+                if (request.status == 200) {// 200 = OK
+                    alert('good');
+                }
+                else {
+                    alert("Problem retrieving XML data");
+                }
+            }
+        };
+
+        request.open("GET", path, true);
+        request.setRequestHeader("Accept", "text/plain");
+        request.setRequestHeader("Content-Type", "text/plain");
+
+        request.send(null);
+
+
+    </script>
+</head>
+<body>
+
+<!--<iframe width="640" height="480" src="http://www.kuterless.org.il">-->
+
+<!--</iframe>-->
+
+</body>
+</html>
