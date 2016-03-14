@@ -1,4 +1,8 @@
 Parse.initialize("6YoHwLPVTyMmN71PXvd78w4jWElbvUBzoGEm2YCg", "JLNEVdY3KWo42t89GzSo5yi2BmUUwafZfELyuio4");
+var current_url;
+chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+     current_url = tabs[0].url;
+});
 
 function addView(sourceUrl) {
     var View = Parse.Object.extend("View");
@@ -123,6 +127,7 @@ function showAdd(show) {
         document.querySelector('.section-add').style.display = 'block';
         document.querySelector('.section-main').style.display = 'none';
         document.querySelector('.section-empty').style.display = 'none';
+        document.querySelector('form .destinationUrl').value = current_url;
     } else {
         document.querySelector('.section-main').style.display = 'block';
         document.querySelector('.section-add').style.display = 'none';
@@ -159,17 +164,17 @@ document.querySelector('form .parse.add').onclick = function () {
         actType = parseInt(document.querySelector('form .actType').value, 10),
         subtitle = document.querySelector('form .subtitle').value;
 
-    if (title.length < 10) {
+    if (title.length < 1) {
         alert('יש למלא כותרת לפעולה. נניח שם האירוע בפייסבוק.');
         return;
     }
 
-    if (destinationUrl.length < 10) {
+    if (destinationUrl.length < 1) {
         alert('יש להזין לינק לפעולה. נניח של דף האירוע בפייסבוק.');
         return;
     }
 
-    if (actType <= 0) {
+    if (actType < 1) {
         alert('יש לבחור סוג פעולה מתוך הרשימה.');
         return;
     }
